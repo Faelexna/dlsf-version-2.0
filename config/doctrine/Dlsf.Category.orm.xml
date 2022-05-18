@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\Dlsf\Category" table="petroc_dlsf_category">
+        
+        <id name="id" type="integer" column="object_id">
+            <generator strategy="SEQUENCE" />
+            <sequence-generator sequence-name="record_id" allocation-size="1" />
+        </id>
+        
+        <field name="createdOn" column="timestamp" type="datetime" />
+        <field name="name" column="name" type="string" />
+        <field name="academicYear" column="academic_year" type="integer" />
+        <field name="internalOnly" column="internal_only" type="boolean" />
+        <field name="mealType" column="meal_type" type="string" nullable="true" />
+
+        <one-to-many field="claims" target-entity="Claim" mapped-by="category">
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </one-to-many>
+
+        <field name="deletedOn" column="deleted_on" type="datetime" nullable="true" />
+        <gedmo:soft-deleteable field-name="deletedOn" />
+
+        <field name="subDetail" column="sub_detail" type="string" />
+        <field name="financeOnly" column="finance_only" type="boolean" />
+
+    </entity>
+
+</doctrine-mapping>

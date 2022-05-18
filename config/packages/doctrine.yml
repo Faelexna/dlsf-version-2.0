@@ -1,0 +1,117 @@
+parameters:
+    rems_db_name: PETROCTest
+    quercus_db_name: students
+
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver_class: App\Doctrine\SqlServerDriver
+                host:     azsqlcluster-lb.internal.petroc.ac.uk
+                port:     1433
+                dbname:   "%rems_db_name%"
+                user:     cis
+                password: Buurndown45  
+                charset:  UTF-8
+            rems:
+                driver_class: App\Doctrine\SqlServerDriver
+                host:     azsqlcluster-lb.internal.petroc.ac.uk
+                port:     1433
+                dbname:   "%rems_db_name%"
+                user:     cis
+                password: Buurndown45  
+                charset:  UTF-8
+            rems_test:
+                driver_class: App\Doctrine\SqlServerDriver
+                host:     azsqlcluster-lb.internal.petroc.ac.uk
+                port:     1433
+                dbname:   REMSTest
+                user:     cis
+                password: Buurndown45  
+                charset:  UTF-8
+            mysql:
+                driver:   mysqli
+                host:     10.0.1.105
+                port:     ~
+                dbname:   moodle_3_new
+                user:     cis
+                password: d163141y 
+                charset:  UTF8     
+            finance:
+                driver: sqlsrv
+                host: 10.48.72.86
+                dbname: DIMPETROCTEST
+                user: VPNUser
+                password: 52BbTbU3Dvy8VH2
+            finance_test:
+                driver: sqlsrv
+                host: 10.48.72.86
+                dbname: DIMPETROCTEST
+                user: VPNUser
+                password: 52BbTbU3Dvy8VH2           
+            uniflow:
+                driver: sqlsrv
+                host:     bpl-sql05.internal.petroc.ac.uk
+                port:     1433
+                dbname:   DsPcDb
+                user:     CIS_DB_access
+                password: lKHTUURD98UM5vsilvfJ
+            quercus:
+                driver:   oci8
+                host:     ~
+                port:     ~
+                dbname:   "%quercus_db_name%"
+                user:     cis
+                password: Buurndown45
+                charset:  "UTF8"
+            quercus_misdev:
+                driver:   oci8
+                host:     ~
+                port:     ~
+                dbname:   "%quercus_db_name%"
+                user:     misdev
+                password: Buurndown23
+                charset:  "UTF8"
+   
+    orm:
+        second_level_cache:
+            enabled: true        
+        mappings:
+            App:
+                is_bundle: false
+                type: xml
+                dir: "%kernel.project_dir%/config/doctrine"
+                prefix: App\Entity
+        
+        auto_generate_proxy_classes: false
+        auto_mapping: true
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+        dql:
+            string_functions:
+                age_at_year_start: App\Doctrine\ORM\Query\AgeAtYearStart
+                month: App\Doctrine\ORM\Query\Month
+                string_agg: App\Doctrine\ORM\Query\StringAgg
+                cast: App\Doctrine\ORM\Query\Cast
+                date_to_string: App\Doctrine\ORM\Query\DateToString
+                format_int_time: App\Doctrine\ORM\Query\FormatIntTime
+                smart_cap: App\Doctrine\ORM\Query\SmartCap
+                year: App\Doctrine\ORM\Query\Year
+                day: App\Doctrine\ORM\Query\Day
+                get_academic_year: App\Doctrine\ORM\Query\GetAcademicYear
+                week_beginning: App\Doctrine\ORM\Query\WeekBeginning
+                null_value: Petroc\Bridge\Doctrine\ORM\Query\NullValue
+                replace: Petroc\Bridge\Doctrine\ORM\Query\Replace
+                is_null: App\Doctrine\ORM\Query\IsNull
+        metadata_cache_driver:
+            type: service
+            id: app_cache
+        query_cache_driver:
+            type: service
+            id: app_cache
+        result_cache_driver:
+            type: service
+            id: app_cache

@@ -1,0 +1,253 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+            
+framework:
+    translator: 
+        enabled: false
+    secret: "%secret%"
+    router:
+        resource: "%kernel.project_dir%/app/config/routing.xml"
+        strict_requirements: null
+    php_errors:
+        throw: true
+    templating:
+        engines: ["twig"]
+    assets:
+        packages:
+            webpack:
+                json_manifest_path: "%kernel.project_dir%/web/build/manifest.json"
+                base_urls: ["%base_asset_url%"]
+        base_urls: ["%base_asset_url%"]
+    form:            ~
+    session:         ~
+    csrf_protection: ~	
+    session:
+        save_path: "%kernel.project_dir%/app/sessions"
+
+cis_user:
+    user_class: Cis\DataBundle\Entity\User
+    saml:
+        private_key: "%kernel.project_dir%/app/config/saml.pem"
+        public_cert: "%kernel.project_dir%/app/config/saml.crt"
+
+cis_data:
+    academic_year: "%academic_year%"
+        
+petroc_auth_tkt:
+    private_key: "%petroc_auth_tkt.private_key%"
+    public_key: "%petroc_auth_tkt.public_key%"
+    cookie_name: "%kernel.environment%_petroc_auth_tkt"
+    cookie_domain: ".petroc.ac.uk"
+    
+petroc_access:
+    resource: "%kernel.project_dir%/app/config/access.xml"
+
+sensio_framework_extra:
+    router:  { annotations: false }
+    request: { converters: true }
+    view:    { annotations: false }
+    cache:   { annotations: false }
+
+swiftmailer:
+    transport:  "%mailer_transport%"
+    host:       "%mailer_host%"
+    username:   "%mailer_user%"
+    password:   "%mailer_password%"
+    port:       "%mailer_port%"
+    encryption: "%mailer_enryption%"
+
+
+petroc_core:     
+    postcode_coordinate: Cis\DataBundle\Entity\PostcodeCoordinate    
+    cache: app_cache
+    email:
+        from_address: "cis@petroc.ac.uk"
+        from_name: "Petroc"
+        spool : cis_data.email.orm_spool_mailer
+    exception:
+        email_address: "cis@petroc.ac.uk"
+    messenger:
+        message_queue : Petroc\CoreBundle\Messenger\OrmMessageQueue        
+        providers:
+            - App\Messenger\Provider\Office365EmailProvider
+            - App\Messenger\Provider\CosmicSmsProvider
+            - App\Messenger\Provider\GovNotifyEmailProvider
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - "::_forms.html.twig"
+        - "PetrocCoreBundle:Form:form_div_layout.html.twig"
+            
+gregwar_captcha:
+    height: 32
+    background_color: [238,238,238]
+    quality: 100
+    reload: true
+    as_url: true
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+    
+assetic:
+    debug:          false
+    use_controller: false
+    filters:
+        cssrewrite: ~
+        lessphp:
+            file: "%kernel.project_dir%/app/../vendor/oyejorge/less.php/lessc.inc.php"
+            apply_to: "\\.less$"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  "UTF8"
+            quercus:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  "UTF8"
+            mysql:
+                driver:   "%mysql_database_driver%"
+                host:     "%mysql_database_host%"
+                port:     "%mysql_database_port%"
+                dbname:   "%mysql_database_name%"
+                user:     "%mysql_database_user%"
+                password: "%mysql_database_password%"
+                charset:  UTF8
+            finance:
+                driver: sqlsrv
+                host: 10.48.72.86
+                dbname: DIMPETROCTEST
+                user: VPNUser
+                password: 52BbTbU3Dvy8VH2
+            finance_test:
+                driver: sqlsrv
+                host: 10.48.72.86
+                dbname: DIMPETROCTEST
+                user: VPNUser
+                password: 52BbTbU3Dvy8VH2             
+            uniflow:
+                driver: sqlsrv
+                host:     bpl-sql05.internal.petroc.ac.uk
+                port:     1433
+                dbname:   DsPcDb
+                user:     CIS_DB_access
+                password: lKHTUURD98UM5vsilvfJ
+            rems:
+                driver: sqlsrv
+                host:     azsqlcluster-lb.internal.petroc.ac.uk
+                port:     1433
+                dbname:   PETROCTest
+                user:     cis
+                password: Buurndown45
+            proachieve:
+                driver: sqlsrv
+                host:     10.0.1.76
+                port:     54644
+                dbname:   proachieve
+                user:     CIS_DB_access
+                password: lKHTUURD98UM5vsilvfJ   
+            progeneral:
+                driver: sqlsrv
+                host:     10.0.1.76
+                port:     54644
+                dbname:   progeneral
+                user:     CIS_DB_access
+                password: lKHTUURD98UM5vsilvfJ
+            bksb:
+                driver: sqlsrv
+                host:     BPL-SQL03\SQL2014_INST1
+                port:     54644
+                dbname:   bksb_ClientDatabase
+                user:     CIS_DB_access
+                password: lKHTUURD98UM5vsilvfJ 
+            quercus_misdev:
+                driver:   oci8
+                host:     ~
+                port:     ~
+                dbname:   "%database_name%"
+                user:     misdev
+                password: Buurndown23
+                charset:  "UTF8"
+    orm:
+        mappings:
+            App:
+                is_bundle: false
+                type: xml
+                dir: "%kernel.project_dir%/app/config/doctrine"
+                prefix: App\Entity
+
+        quote_strategy: petroc.orm.quote_strategy
+        auto_generate_proxy_classes: false
+        auto_mapping: true
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+        dql:
+            string_functions:
+                alphanumeric: Petroc\Bridge\Doctrine\ORM\Query\Alphanumeric
+                month: Petroc\Bridge\Doctrine\ORM\Query\Month
+                null_value: Petroc\Bridge\Doctrine\ORM\Query\NullValue
+                replace: Petroc\Bridge\Doctrine\ORM\Query\Replace
+                date_to_academic_year: Petroc\Bridge\Doctrine\ORM\Query\DateToAcademicYear
+                to_date: Petroc\Bridge\Doctrine\ORM\Query\ToDate
+                round: Petroc\Bridge\Doctrine\ORM\Query\Round
+                to_char: Petroc\Bridge\Doctrine\ORM\Query\ToChar
+                is_null: App\Doctrine\ORM\Query\IsNull
+        metadata_cache_driver:
+            type: service
+            id: app_cache
+        query_cache_driver:
+            type: service
+            id: app_cache
+        result_cache_driver:
+            type: service
+            id: app_cache
+
+doctrine_cache:
+    aliases :
+        app_cache : app
+        app_alert_cache: alert
+        app_dd_data_cache: dd_data            
+    providers:
+        alert:
+            type: redis
+            namespace: "legacy_%kernel.project_dir%"
+        app:
+            type: redis
+            namespace: "legacy_%kernel.project_dir%"
+        dd_data:
+            type: redis
+            namespace: "legacy_%kernel.project_dir%"  
+
+knp_snappy:
+    pdf:
+        enabled: true
+        binary: /usr/local/bin/wkhtmltopdf
+        
+stof_doctrine_extensions:
+    default_locale: en_UK
+    orm:
+        default:
+            softdeleteable: true
+            loggable: true
+            tree: true

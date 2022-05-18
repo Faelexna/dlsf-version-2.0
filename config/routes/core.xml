@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="home" path="/">
+        <default key="_controller">App\Controller\DashboardController::indexAction</default>
+    </route>
+    
+    <route id="old_bookings" path="/bookings/event/{id}">
+        <default key="_controller">CisBookingsBundle:Event:view</default>
+    </route>
+    
+    <route id="temp_wes_basket_alert" path="/enrolment/online/basket/alert">
+        <default key="_controller">Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction</default>
+        <default key="path">/wes/online/basket/alert</default>
+        <default key="permanent">true</default>        
+    </route>
+
+    <route id="temp_wes_basket" path="/enrolment/online/basket">
+        <default key="_controller">Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction</default>
+        <default key="path">/wes/online/basket</default>
+        <default key="permanent">true</default>    
+    </route>
+     
+    <route id="toolbar" path="/toolbar">
+        <default key="_controller">App\Controller\DashboardController::toolbarAction</default>
+    </route>
+    
+    <route id="search" path="/search/{id}">
+        <default key="_controller">App\Controller\SearchController:indexAction</default>
+        <default key="id" xsi:nil="true" />
+    </route>
+    
+    <route id="app_standard_report" path="/standard-reports/{id}/{academicYear}/{level}/{area}">
+        <default key="_controller">App\Controller\StandardReportController:indexAction</default>
+        <default key="academicYear" xsi:nil="true" />
+        <default key="level" xsi:nil="true" />
+        <default key="area" xsi:nil="true" />
+    </route>
+    
+    <route id="audit_log" path="/audit-log/{id}/{tableName}">
+        <default key="_controller">App\Controller\AuditLogController:indexAction</default>
+        <default key="tableName" xsi:nil="true" />
+    </route>
+        
+    <import resource="@CisHealthAndSafetyBundle/Resources/config/routing.xml" prefix="/health-and-safety"/>    
+    <import resource="@CisExamBundle/Resources/config/routing.xml" prefix="/exam" />
+    <import resource="@CisWesBundle/Resources/config/routing.xml" prefix="/wes" />
+    <import resource="@CisUserBundle/Resources/config/routing.xml" prefix="/user" />
+    <import resource="@CisTaskBundle/Resources/config/routing.xml" prefix="/workload" />
+    <import resource="@PetrocCoreBundle/Resources/config/routing.xml" prefix="/core" />
+    <import resource="@CisCmsBundle/Resources/config/routing.xml" prefix="/cms" />
+    <import resource="@CisCrmBundle/Resources/config/routing.xml" prefix="/crm" />
+    <import resource="@CisPaymentBundle/Resources/config/routing.xml" prefix="/payment" />
+    <import resource="@GregwarCaptchaBundle/Resources/config/routing/routing.yml" prefix="/captcha" />
+    <import resource="@CisMenuBundle/Resources/config/routing.xml" prefix="/menu" />
+    <import resource="@CisStaffBundle/Resources/config/routing.xml" prefix="/staff" />
+    <import resource="@CisEmpoweringEnterpriseBundle/Resources/config/routing.xml" prefix="/empowering-enterprise" />
+    <import resource="@CisParkingBundle/Resources/config/routing.xml" prefix="/parking" />
+    <import resource="@CisStationeryBundle/Resources/config/routing.xml" prefix="/stationery" />
+    <import resource="@CisFinanceBundle/Resources/config/routing.xml" prefix="/finance" />    
+    <import resource="@CisCustomReporterBundle/Resources/config/routing.xml" prefix="/custom-reporter" />
+    <import resource="@CisEstatesBundle/Resources/config/routing.xml" prefix="/estates" />
+    <import resource="@CisStudentBundle/Resources/config/routing.xml" prefix="/student" />
+    <import resource="@CisMessagingBundle/Resources/config/routing.xml" prefix="/messaging" />
+    <import resource="@CisApprenticeshipBundle/Resources/config/routing.xml" prefix="/apprenticeship"/>
+    <import resource="@CisEnrolmentBundle/Resources/config/routing.xml" prefix="/enrolment" />
+    <import resource="@CisPersonalRecordBundle/Resources/config/routing.xml" prefix="/personal-record"/>
+    <import resource="@CisBusinessPlanningBundle/Resources/config/routing.xml" prefix="/business-planning" />
+    <import resource="@CisAccessBundle/Resources/config/routing.xml" prefix="/access" />
+    <import resource="@CisMarketingBundle/Resources/config/routing.xml" prefix="/marketing" />
+    <import resource="@CisTravelBundle/Resources/config/routing.xml" prefix="/travel" />
+    <import resource="@CisFileShareBundle/Resources/config/routing.xml" prefix="/file-share" />
+    <import resource="@CisQarBundle/Resources/config/routing.xml" prefix="/qar" />
+    <import resource="@CisLrsBundle/Resources/config/routing.xml" prefix="/lrs" />  
+    <import resource="@CisProvisionBundle/Resources/config/routing.xml" prefix="/provision" />
+    <import resource="@CisJobShopBundle/Resources/config/routing.xml" prefix="/jobshop" />
+    <import resource="@CisCollegeCalendarBundle/Resources/config/routing.xml" prefix="/college-calendar"/>
+    <import resource="@CisBookingsBundle/Resources/config/routing.xml" prefix="/bookings" />
+    <import resource="@CisAppointmentsBundle/Resources/config/routing.xml" prefix="/appointments" />   
+    <import resource="@CisLearningAimBundle/Resources/config/routing.xml" prefix="/learning-aim" /> 
+    <import resource="@CisSupportBundle/Resources/config/routing.xml" prefix="/support" />     
+    <import resource="@CisRegisterBundle/Resources/config/routing.xml" prefix="/register" />    
+    <import resource="@CisMoodleBundle/Resources/config/routing.xml" prefix="/moodle-admin" />
+    <import resource="@CisEducationalVisitBundle/Resources/config/routing.xml" prefix="/educational-visits" />
+    <import resource="@CisApplicationsBundle/Resources/config/routing.xml" prefix="/applications"/>
+    <import resource="@CisProgressTrackingBundle/Resources/config/routing.xml" prefix="/tracking"/>
+    <import resource="@CisOperationalRiskBundle/Resources/config/routing.xml" prefix="/operational-risk"/>
+    <import resource="@CisLearnerInclusionPlanBundle/Resources/config/routing.xml" prefix="/lip"/>
+    <import resource="@CisAutoWithdrawalBundle/Resources/config/routing.xml" prefix="/auto-withdrawal"/>
+    <import resource="@CisStrategicRiskBundle/Resources/config/routing.xml" prefix="/strategic-risk"/>
+    <import resource="@CisActionImprovementPlanBundle/Resources/config/routing.xml" prefix="/action-improvement-plan"/>
+    <import resource="@CisCovidBundle/Resources/config/routing.xml" prefix="/covid"/>
+    <import resource="@CisExperienceWorksBundle/Resources/config/routing.xml" prefix="/experience-works"/>
+    <import resource="@CisProspectusBundle/Resources/config/routing.xml" prefix="/prospectus"/>
+    <import resource="@CisHigherEducationBundle/Resources/config/routing.xml" prefix="/higher-education"/>
+    <import resource="@CisResourceFeeBundle/Resources/config/routing.xml" prefix="/resource-fee"/>
+    <import resource="@CisDlsfBundle/Resources/config/routing.xml" prefix="/dlsf"/>
+
+</routes>

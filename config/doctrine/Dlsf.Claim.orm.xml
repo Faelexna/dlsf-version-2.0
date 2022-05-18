@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\Dlsf\Claim" table="petroc_dlsf_claim" repository-class="App\Repository\Dlsf\ClaimRepository">
+        
+        <id name="id" type="integer" column="object_id">
+            <generator strategy="SEQUENCE" />
+            <sequence-generator sequence-name="record_id" allocation-size="1" />
+        </id>
+        
+        <field name="createdOn" column="timestamp" type="datetime" />
+  
+        <many-to-one field="addedByUser" target-entity="\App\Entity\User">
+            <join-column name="added_by_user" referenced-column-name="object_id" />
+        </many-to-one>
+  
+        <many-to-one field="approvedByUser" target-entity="\App\Entity\User">
+            <join-column name="approved_by_user" referenced-column-name="object_id" />
+        </many-to-one>
+        
+        <field name="approved" type="boolean" />
+        <field name="approvedAmount" column="approved_amount" type="float" />
+        <field name="approvedDate" column="approved_date" type="datetime" />
+        
+        <field name="amount" type="float" />
+        <field name="paymentType" column="payment_type" type="string" />
+        <field name="paymentReference" column="payment_reference" type="string" />
+        <field name="notes" type="text" />
+        <field name="chequeRequest" column="cheque_request" type="string" />
+
+        <field name="paidAmount" column="paid_amount" type="float" />
+        <field name="paidDate" column="paid_date" type="datetime" />
+
+        <field name="order" column="petroc_order" type="integer" />
+        <field name="addedByTravelSystem" column="added_by_travel_system" type="boolean" />
+        <field name="chequeCollected" column="cheque_collected" type="boolean" />
+        <field name="attendanceWhenPaid" column="attendance_when_paid" type="integer" />
+        <field name="auditNotes" column="audit_notes" type="text" />
+        
+        <many-to-one field="category" target-entity="Category">
+            <join-column name="petroc_dlsf_category" referenced-column-name="object_id" />
+        </many-to-one>
+        
+        <many-to-one field="applicant" target-entity="Applicant" inversed-by="claims">
+            <join-column name="petroc_dlsf_applicant" referenced-column-name="object_id" />
+        </many-to-one>
+
+        <field name="deletedOn" column="deleted_on" type="datetime" />
+        <gedmo:soft-deleteable field-name="deletedOn" />
+        
+    </entity>
+
+</doctrine-mapping>

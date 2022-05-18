@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+       
+    <route id="home" path="/">
+        <default key="_controller">App\Controller\DashboardController::indexAction</default>
+    </route>
+     
+    <route id="toolbar" path="/toolbar">
+        <default key="_controller">App\Controller\DashboardController::toolbarAction</default>
+    </route>
+    
+    <route id="search" path="/search/{id}">
+        <default key="_controller">App\Controller\SearchController:indexAction</default>
+        <default key="id" xsi:nil="true" />
+    </route>   
+
+    <route id="cis_task" path="/workload" />
+    <route id="cis_task.client" path="/workload/client" />
+    
+    <route id="audit_log" path="/audit-log/{id}">
+        <default key="_controller">App\Controller\AuditLogController</default>
+        <default key="_template">:AuditLog:index.html.twig</default>
+    </route>
+
+    <route id="app_estate.find_room_detail" path="/find-room-detail">
+        <default key="_controller">App\Controller\EstateController::findRoomDetailAction</default>        
+    </route>
+
+    <import resource="@CisMoodleBundle/Resources/config/routing.xml" prefix="/moodle-admin" />
+    <import resource="@CisMenuBundle/Resources/config/routing.xml" prefix="/menu"/>
+    <import resource="@CisRegisterBundle/Resources/config/routing.xml" prefix="/register"/>
+    <import resource="@CisLaptopCabinetBundle/Resources/config/routing.xml" prefix="/laptop-cabinet"/>
+    <import resource="@CisDataBundle/Resources/config/routing.xml" prefix="/data"/>
+    <import resource="@CisTrackingSheetBundle/Resources/config/routing.xml" prefix="/tracking-sheet"/>
+    <import resource="@CisMarketingBundle/Resources/config/routing.xml" prefix="/marketing"/>
+    <import resource="@PetrocCoreBundle/Resources/config/routing.xml" prefix="/"/>
+    <import resource="@CisGovernorBundle/Resources/config/routing.xml" prefix="/governors"/>
+    <import resource="@CisEnrolmentBundle/Resources/config/routing.xml" prefix="/enrolment"/>
+    <import resource="@GregwarCaptchaBundle/Resources/config/routing/routing.yml" prefix="/captcha"/>
+    <import resource="@CisUserBundle/Resources/config/routing.xml" prefix="/user"/>
+    <import resource="@CisOrderBundle/Resources/config/routing.xml" prefix="/order"/>
+    <import resource="@CisParkingBundle/Resources/config/routing.xml" prefix="/parking"/>
+    <import resource="@CisReportingBundle/Resources/config/routing.xml" prefix="/reporting"/>
+    <import resource="@CisApprenticeshipBundle/Resources/config/routing.xml" prefix="/apprenticeship"/>
+    <import resource="@CisAccessBundle/Resources/config/routing.xml" prefix="/access"/>
+    <import resource="@CisFundingBundle/Resources/config/routing.xml" prefix="/funding"/>
+    <import resource="@CisCmsBundle/Resources/config/routing.xml" prefix="/cms"/>
+    <import resource="@CisFileShareBundle/Resources/config/routing.xml" prefix="/file-share"/>
+    <import resource="@CisAssessmentBundle/Resources/config/routing.xml" prefix="/assessment"/>
+    <import resource="@CisOrganisationBundle/Resources/config/routing.xml" prefix="/organisation"/>
+    <import resource="@CisStationeryBundle/Resources/config/routing.xml" prefix="/stationery"/>
+    <import resource="@CisStudentLegacyBundle/Resources/config/routing.xml" prefix="/legacy-student"/>
+    <import resource="@CisStaffBundle/Resources/config/routing.xml" prefix="/staff"/>
+    <import resource="@CisBoardAssuranceBundle/Resources/config/routing.xml" prefix="/board-assurance"/>
+    <import resource="@CisApplicationsBundle/Resources/config/routing.xml" prefix="/applications"/>
+    <import resource="@CisProgressTrackingBundle/Resources/config/routing.xml" prefix="/tracking"/>
+    <import resource="@CisActionImprovementPlanBundle/Resources/config/routing.xml" prefix="/action-improvement-plan"/>
+    <import resource="@CisOperationalRiskBundle/Resources/config/routing.xml" prefix="/operational-risk"/>
+    <import resource="@CisStrategicRiskBundle/Resources/config/routing.xml" prefix="/strategic-risk"/>
+    <import resource="@CisLearnerInclusionPlanBundle/Resources/config/routing.xml" prefix="/lip"/>
+    <import resource="@CisAutoWithdrawalBundle/Resources/config/routing.xml" prefix="/auto-withdrawal"/>
+    
+    <import resource="@CisDemoBundle/Resources/config/routing.xml" prefix="/demo" />  
+    
+    <import resource="@CisQarBundle/Resources/config/routing.xml" prefix="/qar" />
+
+    <import resource="@CisSelfAssessmentBundle/Resources/config/routing.xml" prefix="/self-assessment"/>
+    <import resource="@CisEstatesBundle/Resources/config/routing.xml" prefix="/estates" />
+    <import resource="@CisEmpoweringEnterpriseBundle/Resources/config/routing.xml" prefix="/empowering-enterprise" />
+    <import resource="@CisDestinationBundle/Resources/config/routing.xml" prefix="/destination" />
+    <import resource="@CisTravelBundle/Resources/config/routing.xml" prefix="/travel" />
+    <import resource="@CisFinanceBundle/Resources/config/routing.xml" prefix="/finance" />
+    <import resource="@CisDlsfBundle/Resources/config/routing.xml" prefix="/dlsf" />
+    
+    
+    <route id="note_add" path="/legacy-notes/add/{object}/{reference}/{private}/{returnUrl}/{heading}">
+        <default key="_controller">App\Controller\NoteController::addAction</default>
+    </route>
+   
+    <route id="note_edit" path="/legacy-notes/edit/{id}/{returnUrl}/{heading}">
+        <default key="_controller">App\Controller\NoteController::editAction</default>
+    </route>
+   
+    <route id="note_delete" path="/legacy-notes/delete/{id}/{returnUrl}/{heading}">
+        <default key="_controller">App\Controller\NoteController::deleteAction</default>
+    </route>
+    
+    <route id="note_download_file" path="/legacy-notes/download-file/{id}">
+        <default key="_controller">App\Controller\NoteController::downloadFileAction</default>
+    </route>
+       
+    <route id="note_search" path="/legacy-notes/search/{object}">
+        <default key="_controller">App\Controller\NoteController::searchAction</default>
+    </route>
+       
+    <route id="note_list" path="/legacy-notes/list/{object}/{reference}/{private}/{heading}">
+        <default key="_controller">App\Controller\NoteController::listAction</default>
+    </route>
+    
+    <import resource="../../src/Cis/PaymentBundle/Resources/config/routing.xml" prefix="/payment"/>    
+    <import resource="../../src/Cis/CustomReporterBundle/Resources/config/routing.xml" prefix="/custom-reporter"/>    
+    <import resource="../../src/Cis/CrmBundle/Resources/config/routing.xml" prefix="/crm"/>    
+    <import resource="../../src/Cis/StudentBundle/Resources/config/routing.xml" prefix="/student"/>    
+    <import resource="../../src/Cis/MessagingBundle/Resources/config/routing.xml" prefix="/student"/>    
+    <import resource="../../src/Cis/LrsBundle/Resources/config/routing.xml" prefix="/lrs"/>
+    <import resource="../../src/Cis/BusinessPlanningBundle/Resources/config/routing.xml" prefix="/business-planning"/>
+</routes>
