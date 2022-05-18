@@ -1,0 +1,13 @@
+{% import 'CisDlsfBundle::_macros.html.twig' as display %}
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} :: Edit Applicant
+{% endblock %}
+
+{% block content %}
+	{{ petroc_link(petroc_path('cis_dlsf.applicant.view', {id: applicant.id}), 'Back to Details') }}
+
+	{{ display.applicant_edit(applicant, form) }}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% import 'CisDlsfBundle::_macros.html.twig' as display %}
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} :: Edit Claim
+{% endblock %}
+
+{% block content %}
+
+	{{ petroc_link(petroc_path('cis_dlsf.applicant.edit', {id: claim.applicant.id}), 'Back to Edit') }}
+	{{ form_start(form) }}
+		{{ form_row(form.category) }}
+		{{ form_row(form.amount) }}
+		{{ form_row(form.approvedAmount) }}
+		{{ form_static_row('Paid Amount', claim.paidAmount|format_money|raw) }}
+		{{ form_row(form.paymentType) }}
+		{{ form_row(form.notes) }}
+	<div class="btn-group">
+		{{ button('Save', {class:'primary'}) }}
+	</div>
+	{{ form_end(form) }}
+
+{% endblock %}

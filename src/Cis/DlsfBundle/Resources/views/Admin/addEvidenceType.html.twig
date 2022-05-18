@@ -1,0 +1,19 @@
+{% import 'CisDlsfBundle::_macros.html.twig' as display %}
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} :: Add Evidence Type
+{% endblock %}
+
+{% block content %}
+
+	{{ petroc_link(petroc_path('cis_dlsf.admin', {academicYear: academicYear}), 'Back to Admin Overview') }}
+	{{ form_start(form) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.category) }}
+	<div class="btn-group">
+		{{ button('Save', {class:'primary'}) }}
+	</div>
+	{{ form_end(form) }}
+
+{% endblock %}

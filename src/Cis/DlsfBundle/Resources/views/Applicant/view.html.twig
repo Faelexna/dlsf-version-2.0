@@ -1,0 +1,144 @@
+{% import 'CisDlsfBundle::_macros.html.twig' as display %}
+{% set applicant = summary.applicant %}
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+
+{% block content %}
+	{{ display.applicant_summary(applicant) }}  
+		
+	{% set body = [] %}
+
+	{% for claim in applicant.claims %}
+		{% if claim.getDeletedOn is empty %}
+			{% set body = petroc_push(body, {
+				'support-type' : claim.category.name,
+				'amount' : claim.amount|format_money|raw,
+				'outcome' : claim.approved ? 'Approved' : 'Awaiting Approval',
+				'amount-approved' : claim.approvedAmount|format_money|raw,
+				'amount-paid' : claim.paidAmount|format_money|raw,
+				'payment-type' : claim.paymentType,
+				'payment-reference' : claim.paymentReference,
+				'requests' : '',
+				'date-paid' : claim.paidDate|petroc_date,
+				'notes' : claim.notes	
+			}) %}
+		{% endif %}
+	{% endfor %}
+
+	{% if body|length > 0 %}
+		{% set content %}
+		
+			{{ petroc_table({
+				header : {
+					'support-type' : 'Type of Support',
+					'amount' : 'Amount',
+					'outcome' : 'Outcome',
+					'amount-approved' : 'Amount Approved',
+					'amount-paid' : 'Amount Paid',
+					'payment-type' : 'Payment Type',
+					'payment-reference' : 'Reference',
+					'requests' : 'Requests',
+					'date-paid' : 'Date Paid',
+					'notes' : 'Notes'
+				},
+				body : body
+			}) }}
+		{% endset %}
+		{{ petroc_pane({
+			type: 'info',
+			heading : 'Applications',
+			content : content,
+		}) }}
+	{% endif %}
+		
+	{% set body = [] %}
+
+	{% if applicant.evidenceSeen %}
+		{% set body = petroc_push(body, {
+			'evidence-seen' : applicant.evidenceSeen|bool2str,
+			'evidence-type' : applicant.evidenceType,
+			'date-seen' : applicant.evidenceSeenDate|petroc_date,
+			'seen-by' : applicant.evidenceSeenUser.firstName ~ ' ' ~ applicant.evidenceSeenUser.surname
+		}) %}
+	{% endif %}
+
+	{% if body|length > 0 %}
+		{% set content %}
+			{{ petroc_table({
+				header : {
+					'evidence-seen' : 'Evidence Seen',
+					'evidence-type' : 'Type of Evidence',
+					'date-seen' : 'Date Seen',
+					'seen-by' : 'By Whom'
+				},
+				body : body
+			}) }}
+		{% endset %}
+		{{ petroc_pane({
+			type : 'info',
+			heading : 'Evidence Seen',
+			content : content,
+		}) }}
+	{% endif %}
+		
+	{% set body = [] %}
+
+	{% set body = petroc_push(body, {
+		'account-holder' : applicant.bankAccountHolder,
+		'bank' : applicant.bankName,
+		'sort-code' : applicant.bankSortCode,
+		'account-number' : applicant.bankAccountNumber
+	}) %}
+	
+	{% set bank = body[0]|join %}
+
+	{% if bank|length > 0 %}
+		{% set content %}
+			{{ petroc_table({
+				header : {
+					'account-holder' : 'Account Holder',
+					'bank' : 'Bank',
+					'sort-code' : 'Sort Code',
+					'account-number' : 'Account Number'
+				},
+				body : body
+			}) }}
+		{% endset %}
+		{{ petroc_pane({
+			type : 'info',
+			heading : 'Bank Details',
+			content : content,
+		}) }}
+	{% endif %}
+		
+	{% set body = [] %}
+	
+	{% for note in applicant.notes %}
+		{% if note.deletedOn == false %}
+			{% set body = petroc_push(body, {
+				'date' : note.createdOn|petroc_date,
+				'note' : note.note,
+				'added-by' : note.addedByUser.firstName ~ ' ' ~ note.addedByUser.surname
+			}) %}
+		{% endif %}
+	{% endfor %}
+	
+	{% if body|length > 0 %}
+		{% set content %}
+			{{ petroc_table({
+				header : {
+					'date' : 'Date',
+					'note' : 'Note',
+					'added-by' : 'Added By'
+				},
+				body : body
+			}) }}
+		{% endset %}
+		{{ petroc_pane({
+			type : 'info',
+			heading : 'Application Notes',
+			content : content,
+		}) }}
+	{% endif %}
+	
+	{{ petroc_link(petroc_path('cis_dlsf.applicant.edit', {id : applicant.id}), 'Edit Applicant') }}
+{% endblock %} 

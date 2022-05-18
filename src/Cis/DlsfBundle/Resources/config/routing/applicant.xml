@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+    
+	<route id="cis_dlsf.applicant" path="/{academicYear}/search">
+		<default key="_controller">CisDlsfBundle:Applicant:index</default>
+		<default key="academicYear">%academic_year%</default>
+	</route>   
+
+	<route id="cis_dlsf.applicant.view" path="/{id}/view">
+		<default key="_controller">CisDlsfBundle:Applicant:view</default>
+	</route>   
+	
+	<route id="cis_dlsf.applicant.delete" path="/{id}/delete">
+		<default key="_controller">CisDlsfBundle:Applicant:delete</default>
+	</route>
+	
+	<route id="cis_dlsf.applicant.edit" path="/{id}/edit">
+		<default key="_controller">CisDlsfBundle:Applicant:edit</default>
+	</route>
+	
+	<route id="cis_dlsf.applicant.create_duplicate_fe" path="/{id}/create-duplicate-fe">
+		<default key="_controller">CisDlsfBundle:Applicant:createDuplicateFe</default>
+	</route>
+	
+	<route id="cis_dlsf.applicant.create_duplicate_all" path="/{id}/create-duplicate-all">
+		<default key="_controller">CisDlsfBundle:Applicant:createDuplicateAll</default>
+	</route>
+	
+	<route id="cis_dlsf.applicant.claim.add" path="/{id}/add-claim">
+		<default key="_controller">CisDlsfBundle:Applicant:addClaim</default>
+	</route>
+	
+	<route id="cis_dlsf.applicant.claim.edit" path="/{id}/edit-claim/{claim}">
+		<default key="_controller">CisDlsfBundle:Applicant:editClaim</default>
+	</route>
+	
+	<route id="cis_dlsf.applicant.claim.delete" path="/{id}/delete-claim/{claim}">
+		<default key="_controller">CisDlsfBundle:Applicant:deleteClaim</default>
+	</route>
+	
+	<route id="cis_dlsf.applicant.note.add" path="/{id}/add-note">
+		<default key="_controller">CisDlsfBundle:Applicant:addNote</default>
+	</route>
+
+	<route id="cis_dlsf.applicant.note.edit" path="/{id}/edit-note/{note}">
+		<default key="_controller">CisDlsfBundle:Applicant:editNote</default>
+	</route>
+	
+	<route id="cis_dlsf.applicant.note.delete" path="/{id}/delete-note/{note}">
+		<default key="_controller">CisDlsfBundle:Applicant:deleteNote</default>
+	</route>
+</routes>

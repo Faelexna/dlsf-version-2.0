@@ -1,0 +1,17 @@
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} :: Add Note
+{% endblock %}
+
+{% block content %}
+	{{ petroc_link(petroc_path('cis_dlsf.applicant.edit', {id: applicant.id}), 'Back to Edit') }}
+	{{ form_start(form) }}
+		<h2>Add Note</h2>
+		{{ form_row(form.notes) }}
+	<div class="btn-group">
+		{{ button('Save', {class:'primary'}) }}
+	</div>
+	{{ form_end(form) }}
+
+{% endblock %}

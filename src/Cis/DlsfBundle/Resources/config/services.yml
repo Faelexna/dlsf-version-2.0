@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        public: false
+        autoconfigure: true
+        
+    Cis\DlsfBundle\:
+        resource: "%kernel.project_dir%/src/Cis/DlsfBundle/{CommandBus,Messenger,Form,View}" 
+
+    Cis\DlsfBundle\Twig\CisDlsfExtension:
+        arguments:
+            $targetDir: "%kernel.project_dir%/app/data/cisdlsfbundle/applicants"

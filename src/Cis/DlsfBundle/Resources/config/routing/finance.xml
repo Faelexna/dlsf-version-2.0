@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+    
+    <route id="cis_dlsf.finance" path="/{academicYear}">
+        <default key="_controller">CisDlsfBundle:Finance:index</default>
+        <default key="academicYear">%academic_year%</default>
+    </route>
+
+    <route id="cis_dlsf.finance.income.add" path="/{academicYear}/add-income">
+        <default key="_controller">CisDlsfBundle:Finance:addIncome</default>
+        <default key="academicYear">%academic_year%</default>
+    </route>
+
+    <route id="cis_dlsf.finance.payment_requests.view" path="/{academicYear}/payment-requests">
+        <default key="_controller">CisDlsfBundle:Finance:viewPaymentRequests</default>
+        <default key="academicYear">%academic_year%</default>
+    </route>
+
+    <route id="cis_dlsf.finance.transfer_requests.view" path="/{academicYear}/transfer-requests">
+        <default key="_controller">CisDlsfBundle:Finance:viewTransferRequests</default>
+        <default key="academicYear">%academic_year%</default>
+    </route>
+
+    <route id="cis_dlsf.finance.transfer_request.view" path="/transfer-request/{id}/view">
+        <default key="_controller">CisDlsfBundle:Finance:viewTransferRequest</default>
+    </route>
+
+    <route id="cis_dlsf.finance.payment_request.view" path="/payment-request/{id}/view">
+        <default key="_controller">CisDlsfBundle:Finance:viewPaymentRequest</default>
+    </route>
+
+    <route id="cis_dlsf.finance.transfer_request.approve" path="/transfer-request/{id}/approve">
+        <default key="_controller">CisDlsfBundle:Finance:approveTransferRequest</default>
+    </route>
+
+    <route id="cis_dlsf.finance.payment_request.approve" path="/payment-request/{id}/approve">
+        <default key="_controller">CisDlsfBundle:Finance:approvePaymentRequest</default>
+    </route>
+</routes>

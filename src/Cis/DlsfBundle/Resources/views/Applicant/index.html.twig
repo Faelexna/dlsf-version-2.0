@@ -1,0 +1,69 @@
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} :: Search
+{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+        {{ form_row(form.ageCategory) }}
+        {{ form_row(form.fundingType) }}
+        {{ form_row(form.site) }}
+        {{ form_row(form.faculty) }}
+        {{ form_row(form.student) }}
+        {{ form_row(form.studentLevel) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.excludeCategories) }}
+        {{ form_row(form.evidenceSeen) }}
+        {{ form_row(form.lowIncomeEvidence) }}
+        {{ form_row(form.approved) }}
+        {{ form_row(form.enhancedBursary) }}
+        {{ form_row(form.excludeHigherIncome) }}
+        {{ form_row(form.householdIncomeOne) }}
+        {{ form_row(form.householdIncomeTwo) }}
+        {{ form_row(form.orderBy) }}
+    <div class="btn-group">
+        {{ button('Filter', {class:'primary'}) }}
+    </div>
+    {{ form_end(form) }}
+
+    {% if filter.filtered %}
+        {% if filter.result|length > 0 %}
+            {% set body = [] %}
+            {% for applicant in filter.result %}
+           
+                {% set body = petroc_push(body, {
+                    'id-number' : app_student_link(applicant.student.idNumber),
+                    'name' : applicant.student.firstName ~ ' ' ~ applicant.student.surname,
+                    'email' : applicant.student.email,
+                    'dob' : '(' ~ applicant.age ~ ')',
+                    'funding-type' : applicant.fundingType,
+                    'evidence-seen' : cis_dlsf_evidence(applicant) ~ applicant.evidenceSeenDate|petroc_date,
+                    'live-enrolment' : applicant.isWithdrawn ? '<b class="text-danger">WITHDRAWN</b>' : 'Yes - ' ~ applicant.getLastTaughtDate|petroc_date,
+                    'total-applied' : cis_dlsf_applied(applicant)|format_money|raw,
+                    'total-awaiting' : cis_dlsf_awaiting(applicant)|format_money|raw,
+                    'total-approved' : cis_dlsf_approved(applicant)|format_money|raw,
+                    'total-paid' : cis_dlsf_paid(applicant)|format_money|raw
+                }) %}
+            {% endfor %}
+            {{ petroc_table({
+                header : {
+                    'id-number' : 'ID Number',
+                    'name' : 'Name',
+                    'email' : 'Email',
+                    'dob' : 'DOB',
+                    'funding-type' : 'Funding Type',
+                    'evidence-seen' : 'Evidence seen',
+                    'live-enrolment' : 'Live Enrolment',
+                    'total-applied' : 'Total Amount Applied For',
+                    'total-awaiting' : 'Amount Awaiting Approval',
+                    'total-approved' : 'Amount Approved',
+                    'total-paid' : 'Amount Paid'
+                },
+                body : body
+            }) }}
+        {% else %}
+            {{ petroc_empty('No applicants found.') }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

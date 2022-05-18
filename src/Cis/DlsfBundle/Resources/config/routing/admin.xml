@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+    
+    <route id="cis_dlsf.admin" path="/{academicYear}/overview">
+        <default key="_controller">CisDlsfBundle:Admin:index</default>
+		<default key="academicYear">%academic_year%</default>
+    </route>  
+
+    <route id="cis_dlsf.admin.category.edit" path="/category/{id}/edit">
+        <default key="_controller">CisDlsfBundle:Admin:editCategory</default>
+    </route> 
+
+    <route id="cis_dlsf.admin.category.add" path="/category/{academicYear}/add">
+        <default key="_controller">CisDlsfBundle:Admin:addCategory</default>
+        <default key="academicYear">%academic_year%</default>
+    </route>
+
+    <route id="cis_dlsf.admin.category.delete" path="/category/{id}/delete">
+        <default key="_controller">CisDlsfBundle:Admin:deleteCategory</default>
+    </route>
+	
+    <route id="cis_dlsf.admin.evidence.edit" path="/evidence/{id}/edit">
+        <default key="_controller">CisDlsfBundle:Admin:editEvidenceType</default>
+    </route>
+
+    <route id="cis_dlsf.admin.evidence.add" path="/evidence/{academicYear}/add">
+        <default key="_controller">CisDlsfBundle:Admin:addEvidenceType</default>
+        <default key="academicYear">%academic_year%</default>
+    </route>
+
+    <route id="cis_dlsf.admin.evidence.delete" path="/evidence/{id}/delete">
+        <default key="_controller">CisDlsfBundle:Admin:deleteEvidenceType</default>
+    </route> 
+
+    <route id="cis_dlsf.admin.payment_request" path="/{academicYear}/payment-request">
+        <default key="_controller">CisDlsfBundle:Admin:paymentRequestFilter</default>
+        <default key="academicYear">%academic_year%</default>
+    </route>
+
+    <route id="cis_dlsf.admin.transfer_request" path="/{academicYear}/transfer-request/">
+        <default key="_controller">CisDlsfBundle:Admin:transferRequestFilter</default>
+        <default key="academicYear">%academic_year%</default>
+    </route>
+
+    <route id="cis_dlsf.admin.payment-request.detail.add" path="/payment-request/{paymentRequest}/add-detail/{claim}">
+        <default key="_controller">CisDlsfBundle:Admin:paymentRequestAddDetail</default>
+    </route>
+
+    <route id="cis_dlsf.admin.transfer-request.detail.add" path="/transfer-request/{transferRequest}/add-detail/{claim}">
+        <default key="_controller">CisDlsfBundle:Admin:transferRequestAddDetail</default>
+    </route>
+
+
+    <route id="cis_dlsf.admin.payment_request.submit" path="/payment-request/{paymentRequest}/submit">
+        <default key="_controller">CisDlsfBundle:Admin:submitPaymentRequest</default>
+    </route>
+
+    <route id="cis_dlsf.admin.transfer_request.submit" path="/transfer-request/{transferRequest}/submit">
+        <default key="_controller">CisDlsfBundle:Admin:submitTransferRequest</default>
+    </route>
+
+</routes>

@@ -1,0 +1,18 @@
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} :: Add Category
+{% endblock %}
+
+{% block content %}
+	{{ petroc_link(petroc_path('cis_dlsf.admin', {academicYear: academicYear}), 'Back to Admin Overview') }}
+	{{ form_start(form) }}
+		{{ form_row(form.name) }}
+		{{ form_row(form.internalOnly) }}
+        {{ form_row(form.mealType) }}
+	<div class="btn-group">
+		{{ button('Save', {class:'primary'}) }}
+	</div>
+	{{ form_end(form) }}
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% import 'CisDlsfBundle::_macros.html.twig' as display %}
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} :: Raise Payment Request
+{% endblock %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.ageCategory) }}
+        {{ form_row(form.fundingType) }}
+        {{ form_row(form.site) }}
+        {{ form_row(form.category) }}
+    <div class="btn-group">
+        {{ button('Filter', {class:'primary'}) }}
+    </div>
+    {{ form_end(form) }}
+
+    {% if filter.filtered %}
+        {% if filter.result|length > 0 %}
+            {% set body = [] %}
+            {% for claim in filter.result %}
+                {% set add %}
+					{{ petroc_button({
+						url : petroc_path('cis_dlsf.admin.payment-request.detail.add', {paymentRequest : paymentRequest.id, claim: claim.id}),
+						text : '',
+						action : 'add'
+					}) }}
+				{% endset %}
+                {% set body = petroc_push(body, {
+                    'id-number' : claim.applicant.student.idNumber,
+                    'name' : claim.applicant.student.firstName ~ ' ' ~ claim.applicant.student.surname,
+                    'category' : claim.category.name,
+                    'amount-awaiting-payment' : cis_dlsf_awaiting_payment(claim)|format_money|raw,
+                    'add' : add
+                }) %}
+            {% endfor %}
+            {{ petroc_table({
+                header : {
+                    'id-number' : 'ID Number',
+                    'name' : 'Name',
+                    'email' : 'Email',
+                    'category' : 'Category',
+                    'amount-awaiting-payment' : 'To Be Paid',
+                    'add' : 'Add'
+                },
+                body : body
+            }) }}
+        {% else %}
+            {{ petroc_empty('No claims found.') }}
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends 'CisDlsfBundle::layout.html.twig' %}
+{% import 'CisDlsfBundle::_macros.html.twig' as display %}
+{% set categories = summary.categories %}
+{% set evidenceTypes = summary.evidenceTypes %}
+{% set benefitsTypes = summary.benefitsTypes %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-6">
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			{% set body = [] %}
+
+			{% for category in categories %}
+				{% if category.deletedOn is empty %}
+					{% set edit %}
+					{{ petroc_button({
+							url : petroc_path('cis_dlsf.admin.category.edit', {id: category.id}),
+							text : '',
+							action : 'edit'
+						}) }} 
+					{% endset %}
+					{% set delete %}
+						{{ petroc_button({
+							url : petroc_path('cis_dlsf.admin.category.delete', {id: category.id}),
+							text : '',
+							action : 'delete'
+						}) }}
+					{% endset %}
+					{% set body = petroc_push(body, {
+						'name' : category.name,
+						'internal-only' : category.internalOnly|bool2str,
+						'claims' : category.claims|length,
+						'applied' : cis_dlsf_cat_applied(category)|format_money|raw,
+						'awaiting' : cis_dlsf_cat_awaiting(category)|format_money|raw,
+						'approved' : cis_dlsf_cat_approved(category)|format_money|raw,
+						'paid' : cis_dlsf_cat_paid(category)|format_money|raw,
+						'edit' : edit,
+						'delete' : delete
+					}) %}
+				{% endif %}
+			{% endfor %}
+
+			{% if body|length > 0 %}
+				{% set content %}
+					<div style="padding-left: 15px">
+						{{ petroc_link(petroc_path('cis_dlsf.admin.category.add'), 'Add New Category') }}
+					</div>
+					{{ petroc_table({
+						header : {
+							'name' : 'Category Name',
+							'internal-only' : 'Internal Only?',
+							'claims' : 'Claims',
+							'applied' : 'Amount Applied For',
+							'awaiting' : 'Amount Awaiting Approval',
+							'approved' : 'Amount Approved',
+							'paid' : 'Amount Paid',
+							'edit' : 'Edit',
+							'delete' : 'Delete'
+						},
+						body : body
+					}) }}
+				{% endset %}
+				{{ petroc_pane({
+					type: 'info',
+					heading : 'Categories',
+					content : content,
+				}) }}
+			{% endif %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			{% set body = [] %}
+			
+			{% for evidenceType in evidenceTypes %}
+				{% if evidenceType.deletedOn == false %}
+					{% set edit %}
+					{{ petroc_button({
+							url : petroc_path('cis_dlsf.admin.evidence.edit', {id: evidenceType.id}),
+							text : '',
+							action : 'edit'
+						}) }} 
+					{% endset %}
+					{% set delete %}
+						{{ petroc_button({
+							url : petroc_path('cis_dlsf.admin.evidence.delete', {id: evidenceType.id}),
+							text : '',
+							action : 'delete'
+						}) }}
+					{% endset %}
+					{% set body = petroc_push(body, {
+						'description' : evidenceType.description,
+						'category' : evidenceType.category|length ? evidenceType.category : 'All',
+						'edit' : edit,
+						'delete' : delete
+					}) %}
+				{% endif %}
+			{% endfor %}
+			
+			{% if body|length > 0 %}
+				{% set content %}
+					<div style="padding-left: 15px">
+						{{ petroc_link(petroc_path('cis_dlsf.admin.evidence.add'), 'Add Evidence Type') }}
+					</div>
+					{{ petroc_table({
+						header : {
+							'description' : 'Description',
+							'category' : 'Age Category',
+							'edit' : 'Edit',
+							'delete' : 'Delete'
+						},
+						body : body
+					}) }}
+				{% endset %}
+				{{ petroc_pane({
+					type : 'info',
+					heading : 'Evidence Types',
+					content : content,
+				}) }}
+			{% endif %}
+		</div>
+		<div class="col-md-6">
+			{% set content %}
+				<div class="list-group">
+					{{ display.admin_link(petroc_path('cis_dlsf.applicant', {academicYear : summary.academicYear}), 'fa.search', 'Search Applicants') }}
+					{{ display.admin_link(petroc_path('cis_dlsf.admin.payment_request', {academicYear : summary.academicYear}), 'fa.pound-sign', 'Raise Payment Request', summary.numAwaitingPayment) }}
+					{{ display.admin_link(petroc_path('cis_dlsf.admin.transfer_request', {academicYear : summary.academicYear}), 'fa.file-invoice', 'Raise Transfer Request', summary.numAwaitingTransfer) }}
+				</div>
+			{% endset %}
+
+			{{ petroc_pane({
+				heading : 'Actions',
+				type : 'info',
+				content : content
+			}) }}
+			{% set body = [] %}
+			
+			{% for benefitsType in benefitsTypes %}
+				{% set body = petroc_push(body, {
+					'description' : benefitsType.description,
+					'code' : benefitsType.code,
+					'group' : benefitsType.groupLabel,
+				}) %}
+			{% endfor %}
+			
+			{% if body|length > 0 %}
+				{% set content %}
+					{{ petroc_table({
+						header : {
+							'description' : 'Description',
+							'code' : 'Code',
+							'group' : 'Age Category'
+						},
+						body : body
+					}) }}
+				{% endset %}
+				{{ petroc_pane({
+					type : 'info',
+					heading : 'Benefits Types',
+					content : content,
+				}) }}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %} 
