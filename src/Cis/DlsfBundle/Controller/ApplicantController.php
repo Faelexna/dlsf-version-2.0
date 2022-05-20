@@ -20,7 +20,7 @@ class ApplicantController extends Controller
 		
 		return $this
 			->createFormView(Form\SearchApplicantFormType::class, $command)
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 			->setTemplateData([
 				'academicYear' => $academicYear
 			])
@@ -35,7 +35,7 @@ class ApplicantController extends Controller
 		return $this
 			->createView()
 			->setData(new ApplicantSummary($this->orm,$applicant), 'summary')
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 		;
 	}
 	
@@ -46,7 +46,7 @@ class ApplicantController extends Controller
 		
 		return $this
 			->createFormView(Form\EditApplicantFormType::class, $command)
-			//->restrictTo(Self::ADMIN_ACCESS_RULE)
+			->restrictTo(Self::ADMIN_ACCESS_RULE)
 			->setData($applicant, 'applicant')
 			->setTemplateData([
 				'academicYear' => $academicYear
@@ -63,7 +63,7 @@ class ApplicantController extends Controller
 		
 		return $this
 			->createFormView(Form\EditClaimFormType::class, $command)
-			//->restrictTo(Self::ADMIN_ACCESS_RULE)
+			->restrictTo(Self::ADMIN_ACCESS_RULE)
 			->setData($applicant, 'applicant')
 			->setTemplateData(['academicYear' => $academicYear])
 			->onSuccessRoute(Self::APPLICANT_EDIT_ROUTE, $applicant)
@@ -77,7 +77,7 @@ class ApplicantController extends Controller
 		
 		return $this
 			->createFormView(Form\EditClaimFormType::class, $command)
-			//->restrictTo(Self::ADMIN_ACCESS_RULE)
+			->restrictTo(Self::ADMIN_ACCESS_RULE)
 			->setData($claim, 'claim')
 			->setTemplateData(['academic_year' => $academicYear])
 			->onSuccessRoute(Self::APPLICANT_EDIT_ROUTE, $applicant)
@@ -91,7 +91,7 @@ class ApplicantController extends Controller
 
 		return $this
 			->createFormView(Form\EditNoteFormType::class, $command)
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 			->setData($note, 'note')
 			->onSuccessRoute(Self::APPLICANT_EDIT_ROUTE, $applicant)
 		;
@@ -104,7 +104,7 @@ class ApplicantController extends Controller
 		
 		return $this
 			->createFormView(Form\EditNoteFormType::class, $command)
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 			->setData($applicant, 'applicant')
 			->setTemplateData(['academicYear' => $academicYear])
 			->onSuccessRoute(Self::APPLICANT_EDIT_ROUTE, $applicant)
