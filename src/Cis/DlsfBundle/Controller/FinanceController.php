@@ -15,7 +15,7 @@ class FinanceController extends Controller
 		return $this
 			->createView()
 			->setData(new FinanceSummary($this->orm,$academicYear), 'summary')
-			//->restrictTo(Self::FINANCE_ACCESS_RULE)
+			->restrictTo(Self::FINANCE_ACCESS_RULE)
 		;
     }
 
@@ -25,7 +25,7 @@ class FinanceController extends Controller
 
         return $this
             ->createFormview(AddIncomeType::class, $command)
-            //->restrictTo(Self::FINANCE_ACCESS_RULE)
+            ->restrictTo(Self::FINANCE_ACCESS_RULE)
             ->setTemplateDate(['academicYear' => $academicYear])
             ->onSuccessRoute(Self::FINANCE_INDEX_ROUTE)
         ;
@@ -42,7 +42,7 @@ class FinanceController extends Controller
         return $this
             ->createView()
             ->setData($transfers, 'transfers')
-            //->retrictTo(Self::FINANCE_ACCESS_RULE)
+            ->retrictTo(Self::FINANCE_ACCESS_RULE)
         ;
     }
 
@@ -57,7 +57,7 @@ class FinanceController extends Controller
         return $this
             ->createView()
             ->setData($payments, 'payments')
-            //->restrictTo(Self::FINANCE_ACCESS_RULE)
+            ->restrictTo(Self::FINANCE_ACCESS_RULE)
         ;
 
     }
@@ -76,7 +76,7 @@ class FinanceController extends Controller
         return $this
             ->createView()
             ->setData($transfer, 'transfer')
-            //->restrictTo(Self::FINANCE_ACCESS_RULE)
+            ->restrictTo(Self::FINANCE_ACCESS_RULE)
         ;
     }
 
@@ -86,7 +86,7 @@ class FinanceController extends Controller
 
         return $this
             ->createConfirmationView($command)
-            //->restrictTo(Self::FINANCE_ACCESS_RULE)
+            ->restrictTo(Self::FINANCE_ACCESS_RULE)
             ->onSuccessRoute(Self::FINANCE_INDEX_ROUTE)
         ;
     }
@@ -97,7 +97,7 @@ class FinanceController extends Controller
 
         return $this
             ->createConfirmationView($command)
-            //->restrictTo(Self::FINANCE_ACCESS_RULE)
+            ->restrictTo(Self::FINANCE_ACCESS_RULE)
             ->onSuccessRoute(Self::FINANCE_INDEX_ROUTE)
         ;
     }
