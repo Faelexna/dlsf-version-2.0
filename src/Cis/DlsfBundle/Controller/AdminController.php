@@ -16,7 +16,7 @@ class AdminController extends Controller
 		return $this
 			->createView()
 			->setData(new AdminSummary($this->orm,$academicYear), 'summary')
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 		;
 	}
 
@@ -26,7 +26,7 @@ class AdminController extends Controller
 
 		return $this
 			->createFormView(Form\EditCategoryFormType::class, $command)
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 			->setTemplateData(['academicYear' => $academicYear])
 			->onSuccessRoute(self::ADMIN_INDEX_ROUTE, $academicYear)
 		;
@@ -38,7 +38,7 @@ class AdminController extends Controller
 
 		return $this
 			->createFormView(Form\EditCategoryFormType::class, $command)
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 			->setTemplateData(['academicYear' => $category->getAcademicYear()])
 			->setData($category, 'category')
 			->onSuccessRoute(self::ADMIN_INDEX_ROUTE)
@@ -51,7 +51,7 @@ class AdminController extends Controller
 
 		return $this
 			->createFormView(Form\EditEvidenceTypeFormType::class, $command)
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 			->setTemplateData(['academicYear' => $academicYear])
 			->onSuccessRoute(self::ADMIN_INDEX_ROUTE, $academicYear)
 		;
@@ -63,7 +63,7 @@ class AdminController extends Controller
 
 		return $this
 			->createFormView(Form\EditEvidenceTypeFormType::class, $command)
-			//->restrictTo(self::ADMIN_ACCESS_RULE)
+			->restrictTo(self::ADMIN_ACCESS_RULE)
 			->setTemplateData(['academicYear' => $evidenceType->getAcademicYear()])
 			->setData($evidenceType, 'evidenceType')
 			->onSuccessRoute(self::ADMIN_INDEX_ROUTE)
